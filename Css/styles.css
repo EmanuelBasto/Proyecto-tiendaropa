@@ -1,0 +1,95 @@
+/*google fonts*/
+@import url('https://fonts.googleapis.com/css2?family=Big+Shoulders:opsz,wght@10..72,100..900&display=swap');
+
+
+*{
+    font-family: "Big Shoulders", sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    scroll-padding: 2rem;
+    text-decoration: none;
+    list-style: none;
+}
+:root{
+    --main-color: #273fa1;
+    --text-color: #000;
+    --bg-col0r: #fff;
+    --container-color: #1e1e2a;
+}
+body{
+    color: var(--text-color);
+    background-color: var(--bg-col0r);
+}
+img{
+    width: 100%;
+}
+section{
+    padding: 4rem 0 2rem;
+}
+.container{
+   max-width: 1070px;
+   margin: auto;
+   width: 100%; 
+}
+header{
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+.nav{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px 0;
+}
+#menu-icon{
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--main-color);
+    display: none;
+}
+.logo{
+    font-size: 1.5rem;
+    color: var(--main-color);
+    text-transform: uppercase;
+    font-weight: 700;
+}
+.navbar{
+    display: flex;
+    align-items: center;
+    column-gap: 1rem;
+}
+.nav-link{
+   font-size: 1.025rem;
+   color: var(--main-color);
+   font-weight: 700; 
+}
+#cart-icon{
+    position: relative;
+    font-size: 1.8rem;
+    color: var(--main-color);
+    cursor: pointer;
+}
+#cart-icon[data-quantity="0"]::after {
+    content: "";
+}
+#cart-icon[data-quantity]::after{
+    content: attr(data-quantity);
+    position: absolute;
+    top: 0;
+    right: -11px;
+    width: 20px;
+    height: 20px;
+    background: var(--main-color);
+    border-radius: 50%;
+    color: var(--bg-col0r);
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
