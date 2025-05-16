@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ecommerce Website</title>
+    <title>Cart</title>
     <!-- link to css -->
      <link rel="stylesheet" href="Css/styles.css"/>
     <!-- box of icons-->
@@ -27,7 +27,6 @@
                 <a href="#" class="nav-link">Accessories</a>
             </div>
         <!--Cart incon-->
-        <!--Enlace a otro html-->
         <a href="cart.html">
             <i class='bx bx-shopping-bag' id="cart-icon" data-quantity="0"></i>
         </a>
@@ -35,20 +34,25 @@
         </div>
 
     </header>
-    <!------------------------------Home-------------------------->
-    <section class="home" id="home">
-        <div class="home-img container">
-            <img src="images/home.png" alt="">
+    <!--Cart-->
+    <section class="cart-container container"></section>
+
+    <!--Link de js-->
+    <section src="js/main.js">
+        <a href="index.html" class="back-homepage">
+            <i class="bx bx-chevron-left"></i>
+            <span>Back to Home</span>
+        </a>
+        <h2 class="cart-s-tittle">Shopping Cart</h2>
+        <div class="cart-box">
+            <div class="cart-data">
+                <div id="cartItems"></div>
+            </div>
+            <div class="cart-t">
+                <div id="cartTotal"></div>
+                <a href="#" class="checkout-btn">checkout</a>
+            </div>
         </div>
     </section>
-    <!---------------------------Products----------------------->
-    <section class="products container" id="products">
-        <!--Heading-->
-        <h2 class="heading">Discover Products</h2>
-        <!--Products-->
-        <div class="product-container" id="productList"></div>
-    </section>
-    <!--Link de js-->
-    <script src="js/main.js"></script>
 </body>
 </html>
