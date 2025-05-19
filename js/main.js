@@ -61,29 +61,101 @@ const products = [
 
 //get the products lits and elements
 const productList = document.getElementById("productList");
-const cartItemsList = document.getElementById("cartItems");
+const cartItemsElement = document.getElementById("cartItems");
 const cartTotalElement = document.getElementById("cartTotal");
 
-
-//store carte items in local storage
+//
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
 
 //render products on page
 function renderProducts() {
-    productList.innerHTML = products
+   if (!productList) return; 
+  productList.innerHTML = products
     .map(
-        (product) => `
+      (product) => `
     <div class="product">
-    <img src="${product.image}" alt="${product.tittle}" class="product-img" />
-    <div class="product-info">
-        <h2 class="product-tittle">${product.tittle}</h2>
-        <p class="product-price">$${product.price.toFixed(2)}</p>
-        <a class="add-to-cart" data-id="${product.id}">Add to cart</a>
+      <img src="${product.image}" alt="${product.title}" class="product-img" />
+      <div class="product-info">
+          <h2 class="product-title">${product.title}</h2>
+          <p class="product-price">$${product.price.toFixed(2)}</p>
+          <a class="add-to-cart" data-id="${product.id}">Add to cart</a>
+      </div>
     </div>
-    </div>
-     `
+    `
     )
-    .join("")
+    .join("");
 }
 
+
+//Render products on cart page 
+function renderCartItems() {
+  if (!cartItemsElement) return; //Evita error si no existe
+  cartItemsElement.innerHTML = cart
+    .map(
+      (item) => `
+    <div class="cart-item">
+      <img src="${item.image}" alt="${item.title}">
+      <div class="cart-item-info">
+        <h2 class="cart-item-title">${item.title}</h2>
+        <input 
+          class="cart-item-quantity" 
+          type="number" 
+          name="" 
+          min="1" 
+          value="${item.quantity}" 
+          data-id="${item.id}"
+        />
+      </div>
+      <h2 class="cart-item-price">${item.price}</h2>
+      <button class="remove-from-cart" data-id="${item.id}">Remove</button>
+    </div>
+    `
+    )
+    .join("");
+}
+
+// Detectar página actual
+if (window.location.pathname.includes("cart.html")) {
+  renderCartItems();
+} else {
+  renderProducts();
+}
+
+// Agregar al carrito
+function addToCart(productId) {
+  const product = products.find((p) => p.id === parseInt(productId));
+  if (!product) return;
+
+  const existingProduct = cart.find((item) => item.id === product.id);
+
+  if (existingProduct) {
+    existingProduct.quantity += 1;
+  } else {
+    cart.push({ ...product, quantity: 1 });
+  }
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCartIcon();
+}
+
+// Escuchar clicks en botones "Add to cart"
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("add-to-cart")) {
+    const productId = e.target.dataset.id;
+    addToCart(productId);
+  }
+});
+
+function updateCartIcon() {
+  const cartIcon = document.querySelector("#cart-icon");
+  const quantity = cart.reduce((sum, item) => sum + item.quantity, 0);
+  if (cartIcon) {
+    cartIcon.setAttribute("data-quantity", quantity);
+  }
+}
+
+
 renderProducts();
+renderCartItems();
+updateCartIcon();
